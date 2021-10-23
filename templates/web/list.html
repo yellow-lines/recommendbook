@@ -42,27 +42,29 @@
 
     <h2 class="beauty-font">Может понравиться</h2>
     <section class="center slider">
-        {% for j in 'asdjkjkjkjkjijasd' %}
+        {% for book in content %}
             <div class="slick-item">
-            <a href = "/book" class="beauty-font" color = "black">
+            <form action="{% url 'choose_book' %}" method="POST">
+            <a href = "/book" class="beauty-font" color = "black" name="item_book">
             <div class="project-box-wrapper">
                     <div style="box-sizing: inherit;" class="margin-list">
             <div class="project-box-header">
-              <span>Романтика</span>
+              <span class = "font">{{book.rubrics}}</span>
               <div class="more-wrapper">
 
           </div>
         </div>
 
         <div class="project-box-content-header">
-            <p class="box-content-header"><span class = "font">Приключения Тома Сойера и Гекьльберри Финна</span></p>
-            <p class="box-content-subheader"><span class = "font">Марк Твен</span></p>
+            <p class="box-content-header"><span class = "font"> {{ book.title }}</span></p>
+            <p class="box-content-subheader"><span class = "font">{{ book.aut }}</span></p>
         </div>
 </a>
-        <div class="box-progress-wrapper">
+            </form>
+        <!--<div class="box-progress-wrapper">
             <button class="btn" id="green"><i class="fa fa-lg" aria-hidden="true">👍</i></button>
             <button class="btn" id="red"><i class="fa fa-lg" aria-hidden="true">👎</i></button>
-        </div>
+        </div>-->
 
       </div>
     </div>
@@ -78,56 +80,50 @@
     <div class="single-feature d-flex flex-wrap justify-content-between">
         <h2 class="beauty-font"> Ваша подборка</h2>
     </div>
-
+        <div class="col-sm-3">
         <table class="table">
-            {% for j in 'asdjkjkjkjkjijasd' %}
-            <tr>
-            {% for k in '1245' %}
-            <th style="border-top:0px">
+                <tr>
+                    {% for book in content %}
+                           <td style="border-top:0px">
                 <a href = "/book" color = "black">
                 <div class="project-box-wrapper">
                     <div class="project-box" style="background-color: #fee4cb;">
                         <div class="project-box-header">
-                            <span>Романтика</span>
+                            <span>{{ book.rubrics }}</span>
                                 <div class="more-wrapper">
-slkdllks
                                 </div>
                         </div>
 
                                 <div class="project-box-content-header">
-                                    <p class="box-content-header"><span class = "font">Приключения Тома Сойера и Гекьльберри Финна</span></p>
-                                    <p class="box-content-subheader"><span class = "font">Марк Твен</span></p>
+                                    <p class="box-content-header"><span class = "font">{{ book.title }}</span></p>
+                                    <p class="box-content-subheader"><span class = "font">{{ book.aut }}</span></p>
                                 </div>
                 </a>
 
-        <div class="box-progress-wrapper">
-            <button class="btn" id="green"><i class="fa fa-lg" aria-hidden="true">👍</i></button>
-            <button class="btn" id="red"><i class="fa fa-lg" aria-hidden="true">👎</i></button>
-        </div>
-        <div class="project-box-footer">
-
-
-        </div>
+                                <!--<div class="box-progress-wrapper">
+                                    <button class="btn" id="green"><i class="fa fa-lg" aria-hidden="true">👍</i></button>
+                                    <button class="btn" id="red"><i class="fa fa-lg" aria-hidden="true">👎</i></button>
+                                </div>-->
+                                <div class="project-box-footer">
+                                </div>
       </div>
     </div>
-                <span class = "font">Приключения Тома Сойера и Гекьльберри Финна</span>
-            </th>
+                <span class ="beauty-font" style="font-size: 14px; font-weight: lighter">{{ book.title }},</span><span> {{ book.aut }}</span>
+            </td>
+                        {% if forloop.counter|divisibleby:4 %}
+                            </tr>
+                            <tr>
+                        {% endif %}
+                    {% endfor %}
+                    </tr>
+
+
+            </table>
+        </div>
 
 
 
-            {% endfor %}
-
-
-        {% endfor %}
-
-        </tr>
-
-
-
-</table>
-    </div>
-
-    </section>
+</section>
 
 
 

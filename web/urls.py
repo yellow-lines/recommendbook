@@ -24,5 +24,6 @@ urlpatterns = [
     path("logout", views.logout_request, name="logout"),
     path('reader_cab/', views.reader_cab, name="reader_cab"),
     path('list/', views.list, name='list'),
-    path('book/', views.book, name='book'),
+    path('book(?P<book_id>\d+)/$', views.book, name='book'),
+    url('choose_book/', views.choose_book, name='choose_book'),
 ]
