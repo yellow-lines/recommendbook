@@ -153,3 +153,7 @@ def connect(request):
     connection = engine.connect()
     dr1 = pd.read_sql("SELECT * FROM adress_table", connection)
     return 0
+
+def graph_request(request):
+    
+    return render(request=request, template_name="web/graph.html")
