@@ -24,14 +24,9 @@ import json
 
 def index(request):
     query = request.GET.get('q')  # получение значения поиска
-    print(query)
     if query != None:
         return render(request, 'web/list.html')
     return render(request, 'web/index.html')
-
-
-def choose_book(request):
-    return redirect('book', book_id=request.GET['item_book'])
 
 def book(request, book_id):
     return render(request, 'web/book.html', {'item_book': book_id})
@@ -56,7 +51,6 @@ def reader_cab(request):
     data = json.loads(output)
 
     # dict_keys(['index', 'recId', 'aut', 'title', 'place', 'publ', 'yea', 'lan', 'rubrics', 'serial'])
-    print(data)
     return render(request, 'web/reader_cab.html', context={'content': data})
 
 
@@ -85,13 +79,7 @@ def list(request):
     data = json.loads(output)
 
     # dict_keys(['index', 'recId', 'aut', 'title', 'place', 'publ', 'yea', 'lan', 'rubrics', 'serial'])
-    print(data)
     return render(request, 'web/list.html', context={'content': data})
-
-
-
-
-
 
 
 class UserViewSet(viewsets.ModelViewSet):
