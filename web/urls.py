@@ -26,4 +26,5 @@ urlpatterns = [
     path('list/', views.list, name='list'),
     url(r'^book/$', views.book, name='book'),
     url('choose_book/', views.choose_book, name='choose_book'),
+    url('graph/', views.graph_request, name='graph')
 ]
