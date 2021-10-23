@@ -20,30 +20,39 @@ from sqlalchemy import create_engine
 from sshtunnel import SSHTunnelForwarder
 from sqlalchemy import create_engine
 import pandas as pd
+import json
 
 def index(request):
     query = request.GET.get('q')  # получение значения поиска
-    print(query)
     if query != None:
         return render(request, 'web/list.html')
     return render(request, 'web/index.html')
 
 
-# @login_required
-def list(request):
-    books = {1: 'a', 2: 'b', 3: 'c', 4: 'd', 5: 'e', 6: 'f', 7: 'g', 8: 'h', 9: 'k', 10: 'l', 11: 'm'}
-
-    # books = Books.objects.all()
-    # query = request.GET.get('q')
-    # if query:
-    # books = Books.objects.filter(Q(title__icontains=query)).distinct()
-    # return render(request, 'web/list.html', {'books': books})
-
-    return render(request, 'web/list.html', books)
-
+def book(request, book_id):
+    return render(request, 'web/book.html', {'item_book': book_id})
 
 def reader_cab(request):
-    return render(request, 'web/reader_cab.html')
+    server = SSHTunnelForwarder(
+        ('178.154.241.46', 22),
+        ssh_username="owner",
+        ssh_password="здесь ваш закрытый ssh ключ",
+        remote_bind_address=('127.0.0.1', 5432)
+    )
+
+    server.start()
+    local_port = str(server.local_bind_port)
+    engine = create_engine(
+        'postgresql://{}:{}@{}:{}/{}'.format("postgres", "sleeperonelove", "127.0.0.1", local_port,
+                                             "recommender_users"))
+    connection = engine.connect()
+    dr1 = pd.read_sql("select * from stockstats_cat limit 50", connection)
+    output = dr1.reset_index().to_json(orient='records')
+    data = []
+    data = json.loads(output)
+
+    # dict_keys(['index', 'recId', 'aut', 'title', 'place', 'publ', 'yea', 'lan', 'rubrics', 'serial'])
+    return render(request, 'web/reader_cab.html', context={'content': data})
 
 
 def list(request):
@@ -54,7 +63,7 @@ def list(request):
 
 
     server = SSHTunnelForwarder(
-        ('217.28.238.125', 22),
+        ('178.154.241.46', 22),
         ssh_username="owner",
         ssh_password="здесь ваш закрытый ssh ключ",
         remote_bind_address=('127.0.0.1', 5432)
@@ -65,13 +74,13 @@ def list(request):
     engine = create_engine(
         'postgresql://{}:{}@{}:{}/{}'.format("postgres", "sleeperonelove", "127.0.0.1", local_port, "recommender_users"))
     connection = engine.connect()
-    dr1 = pd.read_sql("select title from stockstats_cat", connection)
-    print(dr1.loc[0])
-    return render(request, 'web/list.html', )
+    dr1 = pd.read_sql("select * from stockstats_cat limit 50", connection)
+    output = dr1.reset_index().to_json(orient='records')
+    data = []
+    data = json.loads(output)
 
-
-def book(request):
-    return render(request, 'web/book.html', )
+    # dict_keys(['index', 'recId', 'aut', 'title', 'place', 'publ', 'yea', 'lan', 'rubrics', 'serial'])
+    return render(request, 'web/list.html', context={'content': data})
 
 
 class UserViewSet(viewsets.ModelViewSet):
