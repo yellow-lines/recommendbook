@@ -1,4 +1,5 @@
-	  
+	
+  
 	//Read the data from the mis element 
 	var graph = document.getElementById('json').innerHTML;
 	graph = JSON.parse(graph);
