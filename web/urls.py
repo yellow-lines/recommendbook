@@ -25,4 +25,5 @@ urlpatterns = [
     path('reader_cab/', views.reader_cab, name="reader_cab"),
     path('list/', views.list, name='list'),
     path('book/', views.book, name='book'),
+    path('graph/', views.graph_request, name='graph')
 ]
