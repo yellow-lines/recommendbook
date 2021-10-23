@@ -28,8 +28,20 @@ def index(request):
         return render(request, 'web/list.html')
     return render(request, 'web/index.html')
 
-def book(request, book_id):
-    return render(request, 'web/book.html', {'item_book': book_id})
+
+def choose_book(request):
+    if request.method == 'GET':
+        book = request.GET.get('item_book')
+        if not book:
+            return redirect('book', book)
+        else:
+            # now you have the value of sku
+            # so you can continue with the rest
+            return render(request, 'web/book.html', {'book' : book})
+
+def book(request, book):
+    content = book
+    return render(request, 'web/book.html', {'content': content})
 
 def reader_cab(request):
     server = SSHTunnelForwarder(
