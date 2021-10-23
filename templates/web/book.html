@@ -1,0 +1,160 @@
+{% extends "web/base.html" %}
+{% block title %}Название книги{% endblock %}
+{% block link %}
+
+    <link href="../static/web/css/book.css" rel="stylesheet">
+    <link href="../static/web/css/search_input.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../static/web/css/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="../static/web/css/slick-theme.css"/>
+    </script>
+{% endblock %}
+
+{% block head %}
+    <meta name="viewport" content="width=1600px">	<!-- Favicon-->
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=2f85cb8f-26e6-4b83-8182-727eb1bc053e" type="text/javascript"></script>
+    <script src="../static/web/js/map.js" type="text/javascript"></script>
+
+{% endblock %}
+
+{% block content %}
+
+    <section class="subscription-area">
+				<div class="container" style="margin-top: 25px">
+					<div class="row justify-content-center">
+						<div class="col-lg-8">
+							<div class="section-title text-center">
+								<h2>Продолжить поиск</h2>
+								<p class="mb-0 mt-10">Введи название книги и автора</p>
+							</div>
+						</div>
+					</div>
+					<div class="row justify-content-center">
+                        <div class="col-lg-6">
+                            <form class="subscription relative" role="search" method="get" action=''>
+                                <input type="text" class="form-control input-lg " name="q" value="{{ request.GET.q }}" placeholder="Название, автор"/>
+                                <button class='primary-btn' type='submit'><span>Поехали!</span><span class="lnr lnr-arrow-right"></span></button>
+                            </form>
+
+                        </div>
+                    </div>
+				</div>
+			</section>
+
+<section class="story-area">
+    <div class="container" style="margin-left: auto;
+    margin-right: auto; margin-top: -100px; border-top: 100px">
+        <h2 class="beauty-font" style="margin: 50px 00px 0px -49px">{Название книги и автор}</h2>
+
+        <div class="row" style="left: -200px">
+            <div class="col" style="padding: 40px 25px; margin-left: auto;
+    margin-right: auto;
+    width: 6em">
+
+                    <div class="project-box-one" style="background-color: #fee4cb;">
+
+                        <div class="project-box-header">
+                            <span>kddkfk</span>
+                        </div>
+
+                        <div class="project-box-content-header">
+                            <p class="box-content-header"><span class = "font">Приключения Тома Сойера и Гекьльберри Финна</span></p>
+                            <p class="box-content-subheader"><span class = "font">Марк Твен</span></p>
+                        </div>
+                        <div class="box-progress-wrapper">
+                            <button class="btn" id="green"><i class="fa fa-lg" aria-hidden="true">👍</i></button>
+                            <button class="btn" id="red"><i class="fa fa-lg" aria-hidden="true">👎</i></button>
+                        </div>
+                    </div>
+
+            </div>
+                        <div class="col" style="left: -80px; padding: 40px 25px;">
+                            <p>Автор: {мирас миракл}</p>
+                            <p>Тематика: {высер}</p>
+                            <p>Язык издания: {казахский}</p>
+                            <p>Возрастные ограничения: {0+}</p>
+                            <p>Тип издания: {обдристаный лист}</p>
+                            <p>Год издания: {2021}</p>
+
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <button class='primary-btn' style="width: 225px" type='submit'><span>Забронировать</span></button>
+                            </div>
+                        </div>
+
+                    </div>
+                        <div class="row">
+                            <div class="col">
+
+                                <!--<button class="btn" id="green"><i class="fa fa-thumbs-up fa-lg" aria-hidden="true"></i></button>
+                                <button class="btn" id="red"><i class="fa fa-thumbs-down fa-lg" aria-hidden="true"></i></button>
+
+
+
+                                <button class='primary-btn'  type='submit'><span><a>❤️</a> Нравится</span></button>
+                                <button class='primary-btn' type='submit'><span><a>💔</a> Не нравится</span></button>-->
+
+                            </div>
+                        </div>
+    </div>
+<h2 class="beauty-font" style="margin: 50px 100px -49px">Посмотри доступность в библиотеке</h2>
+    <div id="map" class="map" style="width: 900px; height: 400px; margin-left: auto;
+    margin-right: auto; margin-top: 100px"></div>
+
+<h2 class="beauty-font" style="margin: 100px 100px 0px">Книги, похожие на эту</h2>
+    <section class="center slider" >
+        {% for j in 'asdjkjkjkjkjijasd' %}
+            <div class="slick-item">
+            <a href = "/book" color = "black">
+            <div class="project-box-wrapper">
+                    <div class="margin-list">
+            <div class="project-box-header">
+              <span>Романтика</span>
+              <div class="more-wrapper">
+
+          </div>
+        </div>
+
+        <div class="project-box-content-header">
+            <p class="box-content-header"><span class = "font">Приключения Тома Сойера и Гекьльберри Финна</span></p>
+            <p class="box-content-subheader"><span class = "font">Марк Твен</span></p>
+        </div>
+
+       <div class="box-progress-wrapper">
+                            <button class="btn" id="green"><i class="fa fa-lg" aria-hidden="true">👍</i></button>
+                            <button class="btn" id="red"><i class="fa fa-lg" aria-hidden="true">👎</i></button>
+       </div>
+        <div class="project-box-footer">
+          <!--<div class="participants">
+            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2550&q=80" alt="participant">
+            <img src="https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTB8fG1hbnxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60" alt="participant">
+            <button class="add-participant" style="color: #ff942e;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus">
+                <path d="M12 5v14M5 12h14" />
+              </svg>
+            </button>
+          </div>-->
+
+        </div>
+      </div>
+    </div></a>
+            </div>
+        {% endfor %}
+    </section>
+</section>
+
+
+
+
+
+    {% block script %}
+        <script src="../static/web/js/book.js"></script>
+        <script type="text/javascript" src="../static/web/js/jquery-3.6.0.js"></script>
+        <script type="text/javascript" src="../static/web/js/slick.js"></script>
+        <script type="text/javascript" src="../static/web/js/slick-book.js"></script>
+        <script type="text/javascript" src="../static/web/js/like.js"></script>
+        <script type="text/javascript" src="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.9.0/slick/slick.min.js"></script>
+    {% endblock %}
+
+{% endblock %}
+

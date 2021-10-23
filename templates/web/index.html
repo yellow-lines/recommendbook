@@ -1,0 +1,198 @@
+{% extends 'web/base.html' %}
+{% block content %}
+			<div class="banner-area">
+				<div class="container">
+					<div class="row justify-content-center height align-items-center">
+						<div class="col-lg-8">
+							<div class="banner-content text-center">
+								<h1 class="text-uppercase">выбери книгу</h1>
+                                {% if request.user.is_authenticated %}
+								    <a href="/list" class="primary-btn d-inline-flex align-items-center"><span>Получить рекомендацию</span></a>
+                                {% else %}
+                                    <a href="/login" class="primary-btn d-inline-flex align-items-center"><span>Получить рекомендацию</span></a>
+                                {% endif %}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+            <!--<section class="story-area">
+				<div class="container">
+                    <div class="row">
+                        <div class="col-md-9 push-md-3">
+                            <p class="beauty-font">
+                                    Единый читательский билет
+                                    Вам не нужно получать и хранить пластиковые читательские билеты разных библиотек. Подпишите договор с любой городской библиотекой, и в вашем личном кабинете появится единый читательский билет. Покажите его библиотекарю, чтобы взять понравившуюся книгу, или заказывайте книги онлайн через сервис «Библиотеки Москвы».
+                                </p>
+                        </div>
+                        <div class="col-md-3 pull-md-9">
+                            <img src="static/web/img/woman.png" style="width: 400px; order: initial;">
+                        </div>
+                    </div>
+
+				</div>
+			</section>-->
+
+
+
+
+			<!-- Start Feature Area -->
+			<section class="featured-area">
+				<div class="container">
+					<div class="row">
+                        <div class = "desc>">
+                        </div>
+							<div class="single-feature d-flex flex-wrap justify-content-between">
+								<div class="desc">
+									<h2 class="logo beauty-font"><br>История РГБ</h2>
+                                    <img src="static/web/img/woman.png" align="left" width="400">
+									<p style="align:right;">
+                                        В связи с решением новых задач по организации и хранению фондов, в том числе на новых носителях, обслуживанию читателей, научно-методических, научно-исс
+                                        ледовательскВ связи с решением новых задач по организации и хранению фондов, в том числе
+                                        на новых носителях, обслуживаниюом числе на новых носителях, обслуживанию читателей, научно-методических, научно-исследов
+                                        ательских проблем почти в полей, научно-методических, научно-исследовательских проблем почти в полих проблем почти в полто
+                                        ра раза увеличилось количество отделов (созданы нотно-музыкальный, технологический отделы, отделы картографии, изоизданий, в
+                                        ыставочной работы, литературы русского зарубежья, зал диссертаций, научно-исследовательский отдел библиотечно-библиографическ
+                                        их классификаций, музей Библиотеки и другие отделы).
+                                    </p>
+								</div>
+							</div>
+
+                        <div class = "book">
+</div>
+							<div class="single-feature d-flex flex-wrap justify-content-between">
+								<div class="desc">
+									<h2 class="beauty-font">Фонды</h2>
+                                    <img src="static/web/img/stack_of_books.jpeg" align="right" width="300">
+									<p style="align: justify; margin-top: 100px">
+                                        В стенах Российской государственной библиотеки находится уник
+                                        альное собрание отечественных и зарубежных документов на 367
+                                        языках мира. Объём всех фондов превышает 47,4 миллионов единиц хранения
+                                        (по состоянию на 1 января 2020 года), из них около трёх миллионов особо цен
+                                        ных изданий и других документов.В стенах Российской государственной библиотеки находится уник
+                                        альное собрание отечественных и зарубежных документов на 367
+                                        языках мира. Объём всех фондов превышает 47,4 миллионов единиц хранения
+                                        (по состоянию на 1 января 2020 года), из них около трёх миллионов особо цен
+                                        ных изданий и других документов.В стенах Российской государственной библиотеки находится уник
+                                        альное собрание отечественных и зарубежных документов на 367
+                                        языках мира. Объём всех фондов превышает 47,4 миллионов единиц хранения
+                                        (по состоянию на 1 января 2020 года), из них около трёх миллионов особо цен
+                                        ных изданий и других документов.
+                                    </p>
+
+								</div>
+							</div>
+
+
+							<div class="single-feature d-flex flex-wrap justify-content-between">
+
+								<div class="desc">
+									<h2 class="beauty-font">Как записаться</h2>
+									<p style="order: initial; float:left;">Читателем библиотеки может стать каждый гражданин Российской Федерации или другого государства с 14 лет.</p>
+								</div>
+							</div>
+
+							<div class="single-feature d-flex flex-wrap justify-content-between">
+
+								<div class="desc">
+									<h2 class="beauty-font">Читальные залы</h2>
+									<p style="order: initial; float:left;">В Российской государственной библиотеке действуют 34 читальных зала. Основная их часть расположена в главном здании, остальные — в Доме Пашкова, в зданиях РГБ на Моховой улице и Воздвиженке, в комплексе РГБ в Химках.</p>
+								</div>
+							</div>
+
+					</div>
+				</div>
+			</section>
+			<!-- End Feature Area -->
+			<!-- Start About Area -->
+			<!--<section class="about-area">
+				<div class="container">
+					<div class="row align-items-center">
+						<div class="col-lg-4">
+							<div class="about-title">
+								<h2>О нашем проекте</h2>
+								<p>ну мы крутые челики чо сказать</p>
+							</div>
+						</div>
+						<div class="col-lg-3">
+							<div class="about-thumb">
+								<img src="static/web/img/about.jpg" alt="" class="img-fluid">
+							</div>
+						</div>
+						<div class="col-lg-4 ml-auto">
+							<div class="tab-total-content">
+								<div class="nav ilene-tabs" id="myTab" role="tablist">
+									<a class="nav-item active" id="nav-home-tab" data-toggle="tab" href="#nav-history" role="tab" aria-controls="nav-history" aria-selected="true">Команда</a>
+									<a class="nav-item" id="nav-profile-tab" data-toggle="tab" href="#nav-mission" role="tab" aria-controls="nav-mission" aria-selected="false">Цель</a>
+								</div>
+								<div class="tab-content mt-40" id="nav-tabContent">
+									<div class="tab-pane fade show active" id="nav-history" role="tabpanel" aria-labelledby="nav-home-tab">
+										<div class="single-content">
+											<h3>Команда</h3>
+											<p>пару слов о том какие мы крутые ну и нас 5 а не 6 потому что лям легче делить на 5 чем на 6</p>
+										</div>
+									</div>
+									<div class="tab-pane fade" id="nav-mission" role="tabpanel" aria-labelledby="nav-profile-tab">
+										<div class="single-content">
+											<h3>Наши цели</h3>
+											<p>поделить лям на 5</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>-->
+			<!-- End About Area -->
+			<!-- Start Amazing Works Area -->
+		</div>
+		<div class="main-wrapper">
+			<!-- Start Video Area -->
+			<section class="video-area">
+				<div class="overlay overlay-bg"></div>
+				<div class="container">
+					<div class="row justify-content-center">
+						<!--<div class="col-md-7">
+							<div class="video-content text-center">
+								<h4 class="text-white mb-20"><br>klgrlkglkdfgk</h4>
+
+								<p class="text-white">dkfkdfgkjdfkgj</p>
+							</div>
+						</div>-->
+					</div>
+				</div>
+			</section>
+
+		</div>
+
+
+{% endblock %}
+{% block subscription %}
+            <section class="subscription-area">
+				<div class="container" style="margin-top: 100px">
+					<div class="row justify-content-center">
+						<div class="col-lg-8">
+							<div class="section-title text-center">
+								<h2 class="beauty-font">Начать поиск</h2>
+								<p class="mb-0 mt-10">Введи название книги и автора</p>
+							</div>
+						</div>
+					</div>
+                    <!-- input search info -->
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6">
+                            <form class="subscription relative" role="search" method="get" action=''>
+                                <input type="text" class="form-control input-lg " name="q" value="{{ request.GET.q }}" placeholder="Название, автор"/>
+                                <button class='primary-btn' type='submit'><span>Поехали!</span><span class="lnr lnr-arrow-right"></span></button>
+                            </form>
+
+                        </div>
+                    </div>
+                    <!-- end input search info -->
+				</div>
+			</section>
+{% endblock %}
+
+
+

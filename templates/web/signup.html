@@ -1,0 +1,54 @@
+{% extends "web/base.html" %}
+
+{% load static %}
+{% block signup_link %}<link rel='stylesheet' href='{% static "web/css/signup.css" %}' />{% endblock %}
+
+{% block content %}
+
+{% load crispy_forms_tags %}
+
+<!--Register-->
+<section class="myform-area">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="form-area login-form">
+                    <div class="form-content" style="text-align: center">
+                        <h2 class="beauty-font" style="margin-top: 140px; margin-left: 20px;">Заведите кабинет читателя.</h2>
+                        <br>
+                        <br>
+
+                    </div>
+                    <div class="form-input">
+                        <h2 class="beauty-font" style="text-align: center">Регистрация</h2>
+                        <form method="POST">
+                          {% csrf_token %}
+                            <div class="form-group">
+                                <input type="text"  id="your-username" name="username" class="input-text" required>
+                                <label>Имя пользователя</label>
+                            </div>
+							<div class="form-group">
+                                <input type="email"  id="your-email" name="email" class="input-text" required>
+                                <label>Электронная почта</label>
+                            </div>
+							<div class="form-group">
+                                <input type="password"  id="your-password1" name="password1" class="input-text" required>
+                                <label>Пароль</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" id="your-password2" name="password2" class="input-text" required>
+                                <label>Подтверждение пароля</label>
+                            </div>
+                            <div class="myform-button">
+                                <button class="myform-btn">Зарегистрироваться</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p class="text-center" style="margin-top: 40px">У вас уже есть аккаунт? <a href="/login">Войти</a></p>
+</section>
+
+{% endblock %}

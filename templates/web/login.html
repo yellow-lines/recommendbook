@@ -1,0 +1,53 @@
+{% extends "web/base.html" %}
+
+{% load static %}
+{% block signup_link %}<link rel='stylesheet' href='{% static "web/css/login.css" %}' />{% endblock %}
+
+{% block content %}
+
+{% load crispy_forms_tags %}
+
+
+
+
+  <!-- <h1>Вход</h1> -->
+
+    <!-- {{ login_form|crispy }} -->
+
+
+
+  <section class="myform-area">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="form-area login-form">
+                    <div class="form-content" style="text-align: center">
+                        <h2 class="beauty-font" style="margin-top: 100px; margin-left: 20px;">Добро пожаловать!</h2>
+                        <br>
+                        <br>
+                    </div>
+                    <div class="form-input">
+                        <h2 class="beauty-font" style="text-align: center">Авторизация</h2>
+                        <form method="POST">
+                          {% csrf_token %}
+                            <div class="form-group">
+                                <input type="text"  id="your-username" name="username" class="input-text" required>
+                                <label>Имя пользователя</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" id="your-password" name="password" class="input-text" required>
+                                <label>Пароль</label>
+                            </div>
+                            <div class="myform-button">
+                                <button class="myform-btn">Войти</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  <p class="text-center" style="margin-top: 40px">У вас ещё нет аккаунта?<br>Создайте его прямо сейчас!<br><a href="/register">Зарегистрироваться</a></p>
+</section>
+
+{% endblock %}
