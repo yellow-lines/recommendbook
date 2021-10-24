@@ -133,6 +133,8 @@ def get_registr_table_userid(login, connection):
     info_user = pd.read_sql(zapros_to_name, connection)
     userid = info_user.iloc[0]['userid']
     return userid
+
+
 """
 def get_info_book_dict(id_books, connection, login):
     adf = get_id_exp(get_registr_table_userid(login, connection), connection)
@@ -175,4 +177,40 @@ def get_id_exp1(login, connection):
     zapros_to_id_book = 'select * from stockstats_cat where "recId" in ' + str(id_books)
     book_info = pd.read_sql(zapros_to_id_book, connection)
     return book_info
+
+def get_id_exp2(lgn, connection):
+    id_reader = get_registr_table_userid(lgn, connection)
+    zapros_to_id_exp = 'select * from exp_reader_id where "readerID" = ' + \
+        str(int(id_reader))
+    exp = pd.read_sql(zapros_to_id_exp, connection)
+    exp_one_reader = exp.iloc[0, 2:].dropna().astype(int)
+    list_exp = list(exp_one_reader.unique())
+    exp_reader = tuple(list_exp)
+    zapros_to_id_books1 = 'select * from knowledge_base where "Object_1" in ' + \
+        str(exp_reader) + 'OR "Object_2" in ' + str(exp_reader)
+    book_info1 = pd.read_sql(zapros_to_id_books1, connection).drop_duplicates()
+    zapros_to_id_books_obj1 = 'select "aut", "title", "recId" from stockstats_cat where "recId" in ' + \
+        str(tuple(book_info1.Object_1)) + 'OR "recId" in ' + \
+        str(tuple(book_info1.Object_2))
+    book_info_obj1 = pd.read_sql(zapros_to_id_books_obj1, connection)
+
+    book_info_obj1.aut.replace({None: 'Автор неизвестен'}, inplace=True)
+    book_info_obj1.title.replace({None: 'Название неизвестно'}, inplace=True)
+    book_info_obj1['Source'] = book_info_obj1[book_info_obj1.columns[:2]].apply(
+        lambda x: ', '.join(x.astype(str)), axis=1)
+    book_info_obj1.drop(columns=['aut', 'title'], inplace=True)
+    book_info1.rename(columns={'Object_1': 'recId'}, inplace=True)
+    book_info1 = book_info1.merge(book_info_obj1, on=["recId"])
+
+    book_info1.drop(columns=['index', 'recId'], inplace=True)
+
+    book_info_obj1.rename(
+        columns={'Source': 'Target', 'recId': 'Object_2'}, inplace=True)
+    book_info1 = book_info1.merge(book_info_obj1, on=["Object_2"])
+    book_info1.drop(columns=['Object_2'], inplace=True)
+    book_info1.rename(columns={'val': 'Weight'}, inplace=True)
+
+    return book_info1
+
+
 
