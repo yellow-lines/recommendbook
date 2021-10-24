@@ -196,15 +196,15 @@ def graph_request(request):
 
     got_net = Network(height='100%',
                       width='100%',
-                      bgcolor='#ffffff',
-                      font_color='black',
-                      notebook=False)
+                      bgcolor='#222222',
+                      font_color='white',
+                      notebook=True)
 
-    # установить физический макет сети
-    # https://pyvis.readthedocs.io/en/latest/documentation.html#pyvis.network.Network.barnes_hut
     got_net.barnes_hut()
-    got_data = pd.read_csv(
-        'https://www.macalester.edu/~abeverid/data/stormofswords.csv')
+
+    username = request.user.username
+    got_data = get_id_exp2(username, connection)
+
     sources = got_data['Source']
     targets = got_data['Target']
     weights = got_data['Weight']
@@ -231,5 +231,5 @@ def graph_request(request):
 
     got_net.show('templates/web/graph.html')
 
-    return render(request=request, template_name="web/graph.html")
+    return render(request, template_name="web/graph.html")
 
