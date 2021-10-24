@@ -2,110 +2,174 @@
 {% load static %}
 {% block title %}Кабинет читателя{% endblock %}
 {% block link %}
-    <link href="../static/web/css/personal_account.css" rel="stylesheet">
-    <link href="../static/web/css/personal_account.css" rel="stylesheet">
-    <link href="../static/web/css/list.css" rel="stylesheet">
-    <link href="../static/web/css/search_input.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../static/web/css/slick.css"/>
-    <link rel="stylesheet" type="text/css" href="../static/web/css/slick-theme.css"/>
+<link href="../static/web/css/personal_account.css" rel="stylesheet">
+<link href="../static/web/css/personal_account.css" rel="stylesheet">
+<link href="../static/web/css/list.css" rel="stylesheet">
+<link href="../static/web/css/search_input.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="../static/web/css/slick.css" />
+<link rel="stylesheet" type="text/css" href="../static/web/css/slick-theme.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+
 {% endblock %}
 <div class="main-wrapper-first relative">
-{% block content %}
-<section class="subscription-area">
-{% if user.is_authenticated %}
- <h2 class="beauty-font">Добро пожаловать, {{user.username}}</h2>
-    {% endif %}
-				<div class="container" style="margin-top: 100px">
+    {% block content %}
+    <section class="subscription-area">
+        {% if user.is_authenticated %}
+        <h2 class="beauty-font">Добро пожаловать, {{ user.username }}</h2>
+        {% endif %}
+        <div class="container" style="margin-top: 100px">
 
-					<div class="row justify-content-center">
+            <div class="row justify-content-center">
 
-						<div class="col-lg-8">
-							<div class="section-title text-center">
-								<h2 class="beauty-font">Найти книгу из личной подборки</h2>
-								<p class="mb-0 mt-10">Введи автора книги или название</p>
-							</div>
-						</div>
-					</div>
-					<div class="row justify-content-center">
-                        <div class="col-lg-6">
-                            <form class="subscription relative" role="search" method="get" action=''>
-                                <input type="text" class="form-control input-lg " name="q" value="{{ request.GET.q }}" placeholder="Название, автор"/>
-                                <button class='primary-btn' type='submit'><span>Поехали!</span><span class="lnr lnr-arrow-right"></span></button>
-                            </form>
-
-                        </div>
+                <div class="col-lg-8">
+                    <div class="section-title text-center">
+                        <h2 class="beauty-font">Найти книгу из личной подборки</h2>
+                        <p class="mb-0 mt-10">Введи автора книги или название</p>
                     </div>
-				</div>
-			</section>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <form class="subscription relative" role="search" method="get" action=''>
+                        <input type="text" class="form-control input-lg " name="q" value="{{ request.GET.q }}"
+                            placeholder="Название, автор" />
+                        <button class='primary-btn' type='submit'><span>Поехали!</span><span
+                                class="lnr lnr-arrow-right"></span></button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
     <h2 class="beauty-font">Может понравиться</h2>
     <section class="center slider">
-        {% for j in 'asdjkjkjkjkjijasd' %}
-            <div class="slick-item">
-            <a href = "/book" color = "black">
-            <div class="project-box-wrapper">
+    {% for book in content %}
+        <div class="slick-item">
+         <a href="/book?{%for key, value in book.items %}{{key}}={{value}}&{%endfor%}" color="black" name="item_book">
+             <div class="project-box-wrapper">
                     <div class="margin-list">
-            <div class="project-box-header">
-              <span>Романтика</span>
-              <div class="more-wrapper">
+                        <div class="project-box-header">
+                            <span>{{ book.rubrics }}</span>
+                            <div class="more-wrapper">
 
-          </div>
-        </div>
+                            </div>
+                        </div>
 
-        <div class="project-box-content-header">
-            <p class="box-content-header"><span class = "font">Приключения Тома Сойера и Гекьльберри Финна</span></p>
-            <p class="box-content-subheader"><span class = "font">Марк Твен</span></p>
-        </div>
+                        <div class="project-box-content-header">
+                            <p class="box-content-header"><span class="font">{{ book.title|truncatechars:80 }}</span></p>
+                            <p class="box-content-subheader"><span class="font">{{ book.aut }}</span></p>
+                        </div>
 
-        <div class="box-progress-wrapper">
-            <button class="btn" id="green"><i class="fa fa-lg" aria-hidden="true">👍</i></button>
-            <button class="btn" id="red"><i class="fa fa-lg" aria-hidden="true">👎</i></button>
+                        <!--<div class="box-progress-wrapper">
+                            <button class="btn" id="green"><i class="fa fa-lg" aria-hidden="true">👍</i></button>
+                            <button class="btn" id="red"><i class="fa fa-lg" aria-hidden="true">👎</i></button>
+                        </div>-->
+                    </div>
+                </div>
+            </a>
         </div>
-      </div>
-    </div></a>
-            </div>
         {% endfor %}
     </section>
     <h2 class="beauty-font">Это читают все</h2>
     <section class="center slider">
-        {% for j in 'asdjkjkjkjkjijasd' %}
-            <div class="slick-item">
-            <a href = "/book" color = "black">
-            <div class="project-box-wrapper">
+    {% for book in content %}
+        <div class="slick-item">
+            <a href="/book?{%for key, value in book.items %}{{key}}={{value}}&{%endfor%}" color="black" name="item_book">
+                <div class="project-box-wrapper">
                     <div class="margin-list">
-            <div class="project-box-header">
-              <span>Романтика</span>
-              <div class="more-wrapper">
+                        <div class="project-box-header">
+                            <span>{{ book.rubrics }}</span>
+                            <div class="more-wrapper">
 
-          </div>
+                            </div>
+                        </div>
+
+                        <div class="project-box-content-header">
+                            <p class="box-content-header"><span class="font">{{ book.title }}</span></p>
+                            <p class="box-content-subheader"><span class="font">{{ book.aut }}</span></p>
+                        </div>
+
+                        <!--<div class="box-progress-wrapper">
+                            <button class="btn" id="green"><i class="fa fa-lg" aria-hidden="true">👍</i></button>
+                            <button class="btn" id="red"><i class="fa fa-lg" aria-hidden="true">👎</i></button>
+                        </div>-->
+
+                    </div>
+                </div>
+            </a>
         </div>
-
-        <div class="project-box-content-header">
-            <p class="box-content-header"><span class = "font">Приключения Тома Сойера и Гекьльберри Финна</span></p>
-            <p class="box-content-subheader"><span class = "font">Марк Твен</span></p>
-        </div>
-
-        <div class="box-progress-wrapper">
-            <button class="btn" id="green"><i class="fa fa-lg" aria-hidden="true">👍</i></button>
-            <button class="btn" id="red"><i class="fa fa-lg" aria-hidden="true">👎</i></button>
-        </div>
-
-      </div>
-    </div></a>
-            </div>
         {% endfor %}
     </section>
+<footer class="footer-area">
+<span style="background-color: url('../static/web/img/graph.png')">
+        <a href="graph/"><button class='primary-btn' style="width: 225px; position: relative; left: 50%; transform: translate(-50%, 0);" type='submit'><span>Построить граф рекомендаций</span></button></a>
+</span>
+</footer>
+        <section class="featured-area">
+
+    <div class="container pqr">
+
+        <div class="single-feature d-flex flex-wrap justify-content-between">
+            <h2 class="beauty-font"> Ваша персональная подборка </h2>
+        </div>
+        <div class="col-sm-3">
+            <table class="table">
+                <tr>
+                    {% for book in content %}
+                    <td style="border-top:0px">
+                        <a href="/book?{%for key, value in book.items %}{{key}}={{value}}&{%endfor%}" color="black" name="item_book">
+                            <div class="project-box-wrapper">
+                                <div class="project-box" style="background-color: #fee4cb;">
+                                    <div class="project-box-header">
+                                        <span>{{ book.rubrics }}</span>
+                                        <div class="more-wrapper">
+                                        </div>
+                                    </div>
+
+                                    <div class="project-box-content-header">
+                                        <p class="box-content-header"><span class="font">{{ book.title|truncatechars:80}}</span></p>
+                                        <p class="box-content-subheader"><span class="font">{{ book.aut }}</span></p>
+                                    </div>
+
+
+                                    <!--<div class="box-progress-wrapper">
+                                    <button class="btn" id="green"><i class="fa fa-lg" aria-hidden="true">👍</i></button>
+                                    <button class="btn" id="red"><i class="fa fa-lg" aria-hidden="true">👎</i></button>
+                                </div>-->
+                                    <div class="project-box-footer">
+                                    </div>
+                                </div>
+                        </a>
+        </div>
+        <span class="beauty-font" style="font-size: 14px; font-weight: lighter">{{ book.title|truncatechars:80 }},</span>
+        <span> {{ book.aut }}</span>
+        </td>
+        {% if forloop.counter|divisibleby:4 %}
+        </tr>
+        <tr>
+            {% endif %}
+            {% endfor %}
+        </tr>
+
+
+        </table>
+    </div>
+</section>
+
     {% block script %}
-        <script src="../static/web/js/personal_account.js"></script>
-        <script src="../static/web/js/personal_account.js"></script>
-            <script src="../static/web/js/list.js"></script>
-            <script type="text/javascript" src="../static/web/js/jquery-3.6.0.js"></script>
-            <script type="text/javascript" src="../static/web/js/slick.js"></script>
-            <script type="text/javascript" src="../static/web/js/slick-book.js"></script>
-            <script type="text/javascript" src="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.9.0/slick/slick.min.js"></script>
+    <script src="../static/web/js/personal_account.js"></script>
+    <script src="../static/web/js/personal_account.js"></script>
+    <script src="../static/web/js/list.js"></script>
+    <script type="text/javascript" src="../static/web/js/jquery-3.6.0.js"></script>
+    <script type="text/javascript" src="../static/web/js/slick.js"></script>
+    <script type="text/javascript" src="../static/web/js/slick-book.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.9.0/slick/slick.min.js"></script>
     {% endblock %}
-{% endblock %}
+
+    {% endblock %}
 
 
 
 </div>
-

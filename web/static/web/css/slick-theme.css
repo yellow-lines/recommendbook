@@ -126,19 +126,9 @@
 
     text-align: center;
 }
-.slick-dots li
-{
-    position: relative;
 
-    display: inline-block;
 
-    width: 20px;
-    height: 20px;
-    margin: 0 5px;
-    padding: 0;
-
-    cursor: pointer;
-}
+.slick-dots li {   list-style: none;   margin: 0;   padding: 0;   float: left;   width: 310px; }
 .slick-dots li button
 {
     font-size: 0;

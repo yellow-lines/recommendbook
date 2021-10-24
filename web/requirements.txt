@@ -8,3 +8,5 @@ django-elasticsearch-dsl==7.2.0
 django-rest-elasticsearch==0.4.2
 sshtunnel==0.4.0
 sqlalchemy==1.4.26
+pyvis==0.1.9
+

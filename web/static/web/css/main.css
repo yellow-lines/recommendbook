@@ -2592,11 +2592,7 @@ background-color: #FEF1E6;
   background: #fef1e6;
   padding: 100px 0;
   margin-bottom: 6rem;
-  text-shadow: 20px 36.82px 100px rgb(110, 203, 99);
 
-  background-image: -moz-radial-gradient(80% 50%, circle closest-side, #55CBA2 0%, #fef1e6 80%);
-  background-image: -webkit-radial-gradient(50% 50%, circle closest-side, #55CBA2 0%, #fef1e6 80%);
-  background-image: -ms-radial-gradient(50% 50%, circle closest-side, #55CBA2 0%, #fef1e6 80%);
   opacity: .8;
 }
 

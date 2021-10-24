@@ -1,22 +1,24 @@
 {% extends 'web/base.html' %}
 {% block content %}
-			<div class="banner-area">
-				<div class="container">
-					<div class="row justify-content-center height align-items-center">
-						<div class="col-lg-8">
-							<div class="banner-content text-center">
-								<h1 class="text-uppercase">выбери книгу</h1>
-                                {% if request.user.is_authenticated %}
-								    <a href="/list" class="primary-btn d-inline-flex align-items-center"><span>Получить рекомендацию</span></a>
-                                {% else %}
-                                    <a href="/login" class="primary-btn d-inline-flex align-items-center"><span>Получить рекомендацию</span></a>
-                                {% endif %}
-							</div>
-						</div>
-					</div>
+<div class="banner-area">
+	<div class="container">
+		<div class="row justify-content-center height align-items-center">
+			<div class="col-lg-8">
+				<div class="banner-content text-center">
+					<h1 class="text-uppercase">выбери книгу</h1>
+					{% if request.user.is_authenticated %}
+					<a href="/list" class="primary-btn d-inline-flex align-items-center"><span>Получить
+							рекомендацию</span></a>
+					{% else %}
+					<a href="/login" class="primary-btn d-inline-flex align-items-center"><span>Получить
+							рекомендацию</span></a>
+					{% endif %}
 				</div>
 			</div>
-            <!--<section class="story-area">
+		</div>
+	</div>
+</div>
+<!--<section class="story-area">
 				<div class="container">
                     <div class="row">
                         <div class="col-md-9 push-md-3">
@@ -36,68 +38,85 @@
 
 
 
-			<!-- Start Feature Area -->
-			<section class="featured-area">
-				<div class="container">
-					<div class="row">
-                        <div class = "desc>">
-                        </div>
-							<div class="single-feature d-flex flex-wrap justify-content-between">
-								<div class="desc">
-									<h2 class="logo beauty-font"><br>Зачем?</h2>
-                                    <img src="static/web/img/woman.png" align="left" width="400">
-									<p style="align:right;">
-                                        Мы читаем по разным причинам: для получения самой разной информации, для отдыха, для расширения кругозора. Есть множество причин, почему мы должны читать книги. Хорошая литература — это жизнь. Часто мы ищем в ней то, чего нам крайне не хватает в реальности. Происходящее в нашей душе, попытка ответить на интересующие нас вопросы – все это открывает нам книга.
-	Задача рекомендательной системы – проинформировать пользователя о книге, которая ему может быть наиболее интересен в данный момент времени.
-	Но как же лучше всего организовать подбор хорошей и полезной литературы для каждого пользователя?
+<!-- Start Feature Area -->
+<section class="featured-area">
+	<div class="container">
+		<div class="row">
+			<div class="desc>">
+			</div>
+			<div class="single-feature d-flex flex-wrap justify-content-between">
+				<div class="desc">
+					<h2 class="logo beauty-font"><br>Зачем?</h2>
+					<img src="static/web/img/woman.png" align="left" width="400">
+					<p style="align:right; margin-top: 100px;">
+						Мы читаем по разным причинам: для получения самой разной информации, для отдыха, для расширения
+						кругозора. Есть множество причин, почему мы должны читать книги. Хорошая литература — это жизнь.
+						Часто мы ищем в ней то, чего нам крайне не хватает в реальности. Происходящее в нашей душе,
+						попытка ответить на интересующие нас вопросы – все это открывает нам книга.
+						Задача рекомендательной системы – проинформировать пользователя о книге, которая ему может быть
+						наиболее интересен в данный момент времени.
+						Но как же лучше всего организовать подбор хорошей и полезной литературы для каждого
+						пользователя?
 
-                                    </p>
-								</div>
-							</div>
-
-                        <div class = "book">
-</div>
-							<div class="single-feature d-flex flex-wrap justify-content-between">
-								<div class="desc">
-									<h2 class="beauty-font">Наш инновационный подход</h2>
-                                    <img src="static/web/img/stack_of_books.jpeg" align="right" width="300">
-									<p style="align: justify; margin-top: 100px">
-                                        База знаний — база данных, содержащая правила вывода и информацию о человеческом опыте и знаниях в некоторой предметной области. В самообучающихся системах база знаний также содержит информацию, являющуюся результатом решения предыдущих задач.
-                                                                            Так же база знаний — важный компонент интеллектуальной системы. Наиболее известный класс — это экспертные системы. Главная цель создания баз знаний — помочь менее опытным людям найти уже существующее описание способа решения какой-либо проблемы. В нашем случае помочь новым пользователям подобрать для них книги, которые с большой вероятностью им  подойдут.
-
-                                        Веб-сайт с базой знаний является более инновационным. Он предоставляет пользователям место для самостоятельного поиска ответов на вопросы, связанный с выбором подходящей литературы.
-Системы баз знаний — отличное решение этой проблемы. Пользователям предоставляется удобный сервис самопомощи.
-
-
-                                    </p>
-
-								</div>
-							</div>
-
-
-							<div class="single-feature d-flex flex-wrap justify-content-between">
-
-								<div class="desc">
-									<h2 class="beauty-font">Как записаться</h2>
-									<p style="order: initial; float:left;">
-                                    </p>
-								</div>
-							</div>
-
-							<div class="single-feature d-flex flex-wrap justify-content-between">
-
-								<div class="desc">
-									<h2 class="beauty-font">Читальные залы</h2>
-									<p style="order: initial; float:left;">В Российской государственной библиотеке действуют 34 читальных зала. Основная их часть расположена в главном здании, остальные — в Доме Пашкова, в зданиях РГБ на Моховой улице и Воздвиженке, в комплексе РГБ в Химках.</p>
-								</div>
-							</div>
-
-					</div>
+					</p>
 				</div>
-			</section>
-			<!-- End Feature Area -->
-			<!-- Start About Area -->
-			<!--<section class="about-area">
+			</div>
+
+			<div class="book">
+			</div>
+			<div class="single-feature d-flex flex-wrap justify-content-between">
+				<div class="desc">
+					<h2 class="beauty-font">Наш инновационный подход</h2>
+                    <img src="static/web/img/graph.png" align="right" width="300" style="margin-right: -10px;">
+					<p style="align: justify; margin-top: 50px">
+						База знаний — база данных, содержащая правила вывода и информацию о человеческом опыте и знаниях
+						в некоторой предметной области. В самообучающихся системах база знаний также содержит
+						информацию, являющуюся результатом решения предыдущих задач.
+						Так же база знаний — важный компонент интеллектуальной системы. Наиболее известный класс — это
+						экспертные системы. Главная цель создания баз знаний — помочь менее опытным людям найти уже
+						существующее описание способа решения какой-либо проблемы. В нашем случае помочь новым
+						пользователям подобрать для них книги, которые с большой вероятностью им подойдут.
+
+						Веб-сайт с базой знаний является более инновационным. Он предоставляет пользователям место для
+						самостоятельного поиска ответов на вопросы, связанный с выбором подходящей литературы.
+						Системы баз знаний — отличное решение этой проблемы. Пользователям предоставляется удобный
+						сервис самопомощи.
+
+
+					</p>
+
+				</div>
+			</div>
+
+
+			<div class="single-feature d-flex flex-wrap justify-content-between">
+
+				<!--<div class="desc">
+					<h2 class="beauty-font" style="align: justify;">Как записаться</h2>
+                    <img src="static/web/img/stack_of_books.jpeg" align="left" width="300">
+					<p style="align: justify; margin-top: 50px">
+                        База знаний — база данных, содержащая правила вывода и информацию о человеческом опыте и знаниях
+						в некоторой предметной области. В самообучающихся системах база знаний также содержит
+						информацию, являющуюся результатом решения предыдущих задач.
+						Так же база знаний — важный компонент интеллектуальной системы. Наиболее известный класс — это
+						экспертные системы. Главная цель создания баз знаний — помочь менее опытным людям найти уже
+						существующее описание способа решения какой-либо проблемы. В нашем случае помочь новым
+						пользователям подобрать для них книги, которые с большой вероятностью им подойдут.
+
+						Веб-сайт с базой знаний является более инновационным. Он предоставляет пользователям место для
+						самостоятельного поиска ответов на вопросы, связанный с выбором подходящей литературы.
+						Системы баз знаний — отличное решение этой проблемы. Пользователям предоставляется удобный
+						сервис самопомощи.
+					</p>
+				</div>-->
+			</div>
+
+		</div>
+	</div>
+</section>
+<!-- End Feature Area -->
+<!-- Start About Area -->
+<!--<section class="about-area">
 				<div class="container">
 					<div class="row align-items-center">
 						<div class="col-lg-4">
@@ -136,55 +155,54 @@
 					</div>
 				</div>
 			</section>-->
-			<!-- End About Area -->
-			<!-- Start Amazing Works Area -->
-		</div>
-		<div class="main-wrapper">
-			<!-- Start Video Area -->
-			<section class="video-area">
-				<div class="overlay overlay-bg"></div>
-				<div class="container">
-					<div class="row justify-content-center">
-						<!--<div class="col-md-7">
+<!-- End About Area -->
+<!-- Start Amazing Works Area -->
+</div>
+<div class="main-wrapper">
+	<!-- Start Video Area -->
+	<section class="video-area">
+		<div class="overlay overlay-bg"></div>
+		<div class="container">
+			<div class="row justify-content-center">
+				<!--<div class="col-md-7">
 							<div class="video-content text-center">
 								<h4 class="text-white mb-20"><br>klgrlkglkdfgk</h4>
 
 								<p class="text-white">dkfkdfgkjdfkgj</p>
 							</div>
 						</div>-->
-					</div>
-				</div>
-			</section>
-
+			</div>
 		</div>
+	</section>
+
+</div>
 
 
 {% endblock %}
 {% block subscription %}
-            <section class="subscription-area">
-				<div class="container" style="margin-top: 100px">
-					<div class="row justify-content-center">
-						<div class="col-lg-8">
-							<div class="section-title text-center">
-								<h2 class="beauty-font">Начать поиск</h2>
-								<p class="mb-0 mt-10">Введи название книги и автора</p>
-							</div>
-						</div>
-					</div>
-                    <!-- input search info -->
-                    <div class="row justify-content-center">
-                        <div class="col-lg-6">
-                            <form class="subscription relative" role="search" method="get" action=''>
-                                <input type="text" class="form-control input-lg " name="q" value="{{ request.GET.q }}" placeholder="Название, автор"/>
-                                <button class='primary-btn' type='submit'><span>Поехали!</span><span class="lnr lnr-arrow-right"></span></button>
-                            </form>
-
-                        </div>
-                    </div>
-                    <!-- end input search info -->
+<section class="subscription-area">
+	<div class="container" style="margin-top: 100px">
+		<div class="row justify-content-center">
+			<div class="col-lg-8">
+				<div class="section-title text-center">
+					<h2 class="beauty-font">Начать поиск</h2>
+					<p class="mb-0 mt-10">Введи название книги и автора</p>
 				</div>
-			</section>
+			</div>
+		</div>
+		<!-- input search info -->
+		<div class="row justify-content-center">
+			<div class="col-lg-6">
+				<form class="subscription relative" role="search" method="get" action=''>
+					<input type="text" class="form-control input-lg " name="q" value="{{ request.GET.q }}"
+						placeholder="Название, автор" />
+					<button class='primary-btn' type='submit'><span>Поехали!</span><span
+							class="lnr lnr-arrow-right"></span></button>
+				</form>
+
+			</div>
+		</div>
+		<!-- end input search info -->
+	</div>
+</section>
 {% endblock %}
-
-
-
