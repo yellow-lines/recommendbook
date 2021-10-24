@@ -27,15 +27,6 @@ from pyvis.network import Network
 
 
 
-server = SSHTunnelForwarder(
-        ('178.154.241.46', 22),
-        ssh_username="owner",
-        ssh_password="здесь ваш закрытый ssh ключ",
-        remote_bind_address=('127.0.0.1', 5432)
-    )
-
-server.start()
-local_port = str(server.local_bind_port)
 engine = create_engine(
         'postgresql://{}:{}@{}:{}/{}'.format("postgres", "sleeperonelove", "127.0.0.1", local_port,
                                              "recommender_users"))
@@ -44,7 +35,15 @@ connection = engine.connect()
 def index(request):
     query = request.GET.get('q')  # получение значения поиска
     if query != None:
-        return ('book', query)
+        print(query.split())
+        aut_ = '"aut"'
+        title_ = '"title"'
+        sql_request = f"select * from stockstats_cat where({title_} ilike '%{query}%' or {aut_} ilike '%{query}%')"
+        dr2 = pd.read_sql(sqlalchemy.text(sql_request), connection)
+        search_output = dr2.reset_index().to_json(orient='records')
+        search_data = []
+        search_data = json.loads(search_output)
+        return render(request, 'web/list.html', context={'content': search_data})
     return render(request, 'web/index.html')
 
 def book(request):
@@ -72,11 +71,17 @@ def book(request):
 
 def reader_cab(request):
 
-    dr1 = pd.read_sql("select * from stockstats_cat limit 50", connection)
+    """dr1 = pd.read_sql("select * from stockstats_cat limit 50", connection)
     dr_search = dr1
     output = dr1.reset_index().to_json(orient='records')
     data = []
+    data = json.loads(output)"""
+
+    recommend_data = get_id_exp1('login_313414', connection)
+    output = recommend_data.reset_index().to_json(orient='records')
+    data = []
     data = json.loads(output)
+
     query = request.GET.get('q')  # получение значения поиска
     if query != None:
         print(query.split())
@@ -89,7 +94,6 @@ def reader_cab(request):
         search_data = json.loads(search_output)
         return render(request, 'web/list.html', context={'content': search_data})
 
-        return render(request, 'web/list.html', context={'content': data})
     # dict_keys(['index', 'recId', 'aut', 'title', 'place', 'publ', 'yea', 'lan', 'rubrics', 'serial'])
     return render(request, 'web/reader_cab.html', context={'content': data})
 
@@ -110,7 +114,7 @@ def list(request):
     data = []
     data = json.loads(output)
 
-    query = request.GET.get('q')  # получение значения поиска
+    query = request.GET.get('q')  
     if query != None:
         print(query.split())
         aut_ = '"aut"'
@@ -148,8 +152,7 @@ def register_request(request):
             login(request, user)
             messages.success(request, "Registration successful.")
             return redirect("reader_cab")
-        messages.error(
-            request, "Unsuccessful registration. Invalid information.")
+        messages.error(request, "Unsuccessful registration. Invalid information.")
     form = NewUserForm()
     return render(request=request, template_name="web/signup.html", context={"register_form": form})
 
@@ -164,12 +167,12 @@ def login_request(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                messages.info(request, f"Вы вошли как {username}.")
+                messages.info(request, f"You are now logged in as {username}.")
                 return redirect("reader_cab")
             else:
-                messages.error(request, "Неверный пароль или логин.")
+                messages.error(request, "Invalid username or password.")
         else:
-            messages.error(request, "Неверный пароль или логин.")
+            messages.error(request, "Invalid username or password.")
 
     form = AuthenticationForm()
     return render(request=request, template_name="web/login.html", context={"login_form": form})
