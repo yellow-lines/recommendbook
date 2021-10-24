@@ -58,12 +58,12 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 25,
-        'NAME': 'recommender_users',
-        'USER' : 'postgres',
-        'PASSWORD' : 'sleeperonelove',
-        'HOST' : '127.0.0.1',
-        'PORT' : '5432',
-    }
+    'NAME': 'recommender_users',
+    'USER': 'postgres',
+    'PASSWORD': 'sleeperonelove',
+    'HOST': '127.0.0.1',
+    'PORT': '5432',
+}
 
 DATABASES = {
     'default': {
@@ -77,7 +77,7 @@ DATABASES = {
 }
 
 
-ELASTICSEARCH_DSL={
+ELASTICSEARCH_DSL = {
     'default': {
         'hosts': 'localhost:9200'
     },
@@ -98,8 +98,7 @@ ROOT_URLCONF = 'recommender_book.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
-        ,
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -169,9 +168,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-   os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, "static"),
 ]
-
 
 
 MEDIA_URL = '/media/'
@@ -179,7 +177,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
-
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
