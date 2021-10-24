@@ -88,7 +88,7 @@
                 <tr>
                     {% for book in content %}
                     <td style="border-top:0px">
-                        <a href="/book?item_book={{ book }}" color="black" name="item_book">
+                        <a href="/book?{%for key, value in book.items %}{{key}}={{value}}&{%endfor%}" color="black" name="item_book">
                             <div class="project-box-wrapper">
                                 <div class="project-box" style="background-color: #fee4cb;">
                                     <div class="project-box-header">
@@ -98,8 +98,7 @@
                                     </div>
 
                                     <div class="project-box-content-header">
-                                        <p class="box-content-header"><span class="font">{{ book.title|truncatechars:80
-                                                }}</span></p>
+                                        <p class="box-content-header"><span class="font">{{ book.title|truncatechars:80}}</span></p>
                                         <p class="box-content-subheader"><span class="font">{{ book.aut }}</span></p>
                                     </div>
 
@@ -113,8 +112,8 @@
                                 </div>
                         </a>
         </div>
-        <span class="beauty-font" style="font-size: 14px; font-weight: lighter">{{ book.title|truncatechars:80
-            }},</span><span> {{ book.aut }}</span>
+        <span class="beauty-font" style="font-size: 14px; font-weight: lighter">{{ book.title|truncatechars:80 }},</span>
+        <span> {{ book.aut }}</span>
         </td>
         {% if forloop.counter|divisibleby:4 %}
         </tr>

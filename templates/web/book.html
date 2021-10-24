@@ -46,7 +46,7 @@
 <section class="story-area">
     <div class="container" style="margin-left: auto;
     margin-right: auto; margin-top: -100px; border-top: 100px">
-        <h2 class="beauty-font" style="margin: 50px 00px 0px -49px">{Название книги и автор}</h2>
+        <h2 class="beauty-font" style="margin: 50px 00px 0px -49px">{{ request.GET.title }}</h2>
 
         <div class="row" style="left: -200px">
             <div class="col" style="padding: 40px 25px; margin-left: auto;
@@ -56,13 +56,13 @@
                 <div class="project-box-one" style="background-color: #fee4cb;">
 
                     <div class="project-box-header">
-                        <span>kddkfk</span>
+                        <span>{{ request.GET.rubrics }}</span>
                     </div>
 
                     <div class="project-box-content-header">
-                        <p class="box-content-header"><span class="font">Приключения Тома Сойера и Гекьльберри
+                        <p class="box-content-header"><span class="font">{{ request.GET.title }}
                                 Финна</span></p>
-                        <p class="box-content-subheader"><span class="font">Марк Твен</span></p>
+                        <p class="box-content-subheader"><span class="font">{{ request.GET.aut }}</span></p>
                     </div>
                     <div class="box-progress-wrapper">
                         <button class="btn" id="green"><i class="fa fa-lg" aria-hidden="true">👍</i></button>
@@ -72,12 +72,12 @@
 
             </div>
             <div class="col" style="left: -80px; padding: 40px 25px;">
-                <p>Автор: {мирас миракл}</p>
-                <p>Тематика: {высер}</p>
-                <p>Язык издания: {казахский}</p>
-                <p>Возрастные ограничения: {0+}</p>
-                <p>Тип издания: {обдристаный лист}</p>
-                <p>Год издания: {2021}</p>
+                <p>Автор: {{ request.GET.aut }}</p>
+                <p>Тематика: {{ request.GET.rubrics }}</p>
+                <p>Язык издания: {%if request.GET.lan == 'rus'%}Русский{%endif%}</p>
+                <p>Возрастные ограничения: 12+</p>
+                <p>Тип издания: {{ request.GET.publ }}</p>
+                <p>Год издания: {{ request.GET.yea }}</p>
 
             </div>
             <div class="row">
