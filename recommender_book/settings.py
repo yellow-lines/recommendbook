@@ -60,7 +60,7 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 25,
     'NAME': 'recommender_users',
     'USER': 'postgres',
-    'PASSWORD': 'sleeperonelove',
+    'PASSWORD': '',
     'HOST': '127.0.0.1',
     'PORT': '5432',
 }
@@ -70,7 +70,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'recommender_users',
         'USER': 'postgres',
-        'PASSWORD': 'sleeperonelove',
+        'PASSWORD': '',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
