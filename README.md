@@ -1,6 +1,7 @@
 # Рекоменбук - сервис рекомендации книг для библиотек
 ## Описание
 http://178.154.241.46:4985/
+credentials: {login: 'login_313415', pass: 'xjTYShyJ'; login: 'login_313418', pass: 'QGHnM23b'}
 
 
 
