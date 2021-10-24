@@ -22,6 +22,8 @@ from sqlalchemy import create_engine
 import pandas as pd
 import json
 
+from pyvis.network import Network
+
 def index(request):
     query = request.GET.get('q')  # получение значения поиска
     if query != None:
@@ -155,5 +157,40 @@ def connect(request):
     return 0
 
 def graph_request(request):
-    
+
+    got_net = Network(height='100%',
+                    width='100%',
+                    bgcolor='#ffffff',
+                    font_color='black',
+                    notebook=False)
+
+    # установить физический макет сети
+    # https://pyvis.readthedocs.io/en/latest/documentation.html#pyvis.network.Network.barnes_hut
+    got_net.barnes_hut()
+    got_data = pd.read_csv('https://www.macalester.edu/~abeverid/data/stormofswords.csv')
+    sources = got_data['Source']
+    targets = got_data['Target']
+    weights = got_data['Weight']
+
+    edge_data = zip(sources, targets, weights)
+
+    for e in edge_data:
+        src = e[0]
+        dst = e[1]
+        w = e[2]
+
+        got_net.add_node(src, src, title=src)
+        got_net.add_node(dst, dst, title=dst)
+        got_net.add_edge(src, dst, value=w)
+
+    # https://pyvis.readthedocs.io/en/latest/documentation.html#pyvis.network.Network.get_adj_list
+    neighbor_map = got_net.get_adj_list()
+
+    # добавить данные о соседях в узлы
+    for node in got_net.nodes:
+        node['title'] += ' Neighbors:<br>' + '<br>'.join(neighbor_map[node['id']])
+        node['value'] = len(neighbor_map[node['id']])
+
+    got_net.show('templates/web/graph.html')
+
     return render(request=request, template_name="web/graph.html")
