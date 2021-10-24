@@ -34,15 +34,15 @@ def choose_book(request):
     if request.method == 'GET':
         book = request.GET.get('item_book')
         if not book:
-            return redirect('book', book)
+            return render(request, 'web/book.html')
         else:
             # now you have the value of sku
             # so you can continue with the rest
-            return render(request, 'web/book.html', {'book' : book})
+            return redirect('book', book)
 
-def book(request, book):
-    content = book
-    return render(request, 'web/book.html', {'content': content})
+def book(request):
+
+    return render(request, 'web/book.html', {'book': book})
 
 def reader_cab(request):
     server = SSHTunnelForwarder(
