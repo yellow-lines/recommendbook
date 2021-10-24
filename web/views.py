@@ -24,6 +24,7 @@ import json
 
 from pyvis.network import Network
 
+
 def index(request):
     query = request.GET.get('q')  # получение значения поиска
     if query != None:
@@ -39,11 +40,13 @@ def choose_book(request):
         else:
             # now you have the value of sku
             # so you can continue with the rest
-            return render(request, 'web/book.html', {'book' : book})
+            return render(request, 'web/book.html', {'book': book})
 
-def book(request, book):
-    content = book
-    return render(request, 'web/book.html', {'content': content})
+
+def book(request):
+
+    return render(request, 'web/book.html', {'book': book})
+
 
 def reader_cab(request):
     server = SSHTunnelForwarder(
@@ -73,8 +76,6 @@ def list(request):
     connection = engine.connect()
     dr1 = pd.read_sql("SELECT * FROM adress_table", connection)"""
 
-
-
     server = SSHTunnelForwarder(
         ('178.154.241.46', 22),
         ssh_username="owner",
@@ -92,7 +93,6 @@ def list(request):
     data = []
     data = json.loads(output)
 
-    # dict_keys(['index', 'recId', 'aut', 'title', 'place', 'publ', 'yea', 'lan', 'rubrics', 'serial'])
     return render(request, 'web/list.html', context={'content': data})
 
 
@@ -119,7 +119,8 @@ def register_request(request):
             login(request, user)
             messages.success(request, "Registration successful.")
             return redirect("reader_cab")
-        messages.error(request, "Unsuccessful registration. Invalid information.")
+        messages.error(
+            request, "Unsuccessful registration. Invalid information.")
     form = NewUserForm()
     return render(request=request, template_name="web/signup.html", context={"register_form": form})
 
@@ -150,24 +151,28 @@ def logout_request(request):
     messages.info(request, "You have successfully logged out.")
     return redirect("index")
 
+
 def connect(request):
-    engine = create_engine("postgresql://postgres:sleeperonelove@127.0.0.1:5432/recommender_users")
+    engine = create_engine(
+        "postgresql://postgres:sleeperonelove@127.0.0.1:5432/recommender_users")
     connection = engine.connect()
     dr1 = pd.read_sql("SELECT * FROM adress_table", connection)
     return 0
 
+
 def graph_request(request):
 
     got_net = Network(height='100%',
-                    width='100%',
-                    bgcolor='#ffffff',
-                    font_color='black',
-                    notebook=False)
+                      width='100%',
+                      bgcolor='#ffffff',
+                      font_color='black',
+                      notebook=False)
 
     # установить физический макет сети
     # https://pyvis.readthedocs.io/en/latest/documentation.html#pyvis.network.Network.barnes_hut
     got_net.barnes_hut()
-    got_data = pd.read_csv('https://www.macalester.edu/~abeverid/data/stormofswords.csv')
+    got_data = pd.read_csv(
+        'https://www.macalester.edu/~abeverid/data/stormofswords.csv')
     sources = got_data['Source']
     targets = got_data['Target']
     weights = got_data['Weight']
@@ -188,7 +193,8 @@ def graph_request(request):
 
     # добавить данные о соседях в узлы
     for node in got_net.nodes:
-        node['title'] += ' Neighbors:<br>' + '<br>'.join(neighbor_map[node['id']])
+        node['title'] += ' Neighbors:<br>' + \
+            '<br>'.join(neighbor_map[node['id']])
         node['value'] = len(neighbor_map[node['id']])
 
     got_net.show('templates/web/graph.html')
