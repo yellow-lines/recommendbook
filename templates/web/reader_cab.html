@@ -16,7 +16,7 @@
     {% block content %}
     <section class="subscription-area">
         {% if user.is_authenticated %}
-        <h2 class="beauty-font">Добро пожаловать, {{ user.username }}</h2>
+       <center><h2 class="beauty-font">Добро пожаловать, {{ user.username }}</h2></center>
         {% endif %}
         <div class="container" style="margin-top: 100px">
 
@@ -72,7 +72,7 @@
         </div>
         {% endfor %}
     </section>
-    <h2 class="beauty-font">Это читают все</h2>
+   <!-- <h2 class="beauty-font">Это читают все</h2>
     <section class="center slider">
     {% for book in content %}
         <div class="slick-item">
@@ -91,17 +91,17 @@
                             <p class="box-content-subheader"><span class="font">{{ book.aut }}</span></p>
                         </div>
 
-                        <!--<div class="box-progress-wrapper">
+                        <div class="box-progress-wrapper">
                             <button class="btn" id="green"><i class="fa fa-lg" aria-hidden="true">👍</i></button>
                             <button class="btn" id="red"><i class="fa fa-lg" aria-hidden="true">👎</i></button>
-                        </div>-->
+                        </div>
 
                     </div>
                 </div>
             </a>
         </div>
         {% endfor %}
-    </section>
+    </section>-->
 <footer class="footer-area">
 <span style="background-color: url('../static/web/img/graph.png')">
         <a href="graph/"><button class='primary-btn' style="width: 225px; position: relative; left: 50%; transform: translate(-50%, 0);" type='submit'><span>Построить граф рекомендаций</span></button></a>
@@ -112,7 +112,7 @@
     <div class="container pqr">
 
         <div class="single-feature d-flex flex-wrap justify-content-between">
-            <h2 class="beauty-font"> Ваша персональная подборка </h2>
+            <h2 class="beauty-font"> Просмотренные </h2>
         </div>
         <div class="col-sm-3">
             <table class="table">

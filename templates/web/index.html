@@ -180,6 +180,8 @@
 
 {% endblock %}
 {% block subscription %}
+            {% if user.is_authenticated %}
+
 <section class="subscription-area">
 	<div class="container" style="margin-top: 100px">
 		<div class="row justify-content-center">
@@ -205,4 +207,5 @@
 		<!-- end input search info -->
 	</div>
 </section>
+{% endif %}
 {% endblock %}

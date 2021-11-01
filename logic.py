@@ -1,7 +1,6 @@
-#from collections import Counter
+from collections import Counter
 import pandas as pd
 
-#path_to_data = 'F:\\Датасеты с ЛЦТ\\Book_exp.csv'
 def number_listt(path_to_data):
     Exp = pd.read_csv(path_to_data)
     Exp = Exp.drop('userid', axis = 1)

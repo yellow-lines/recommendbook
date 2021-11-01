@@ -36,7 +36,7 @@ ALLOWED_HOSTS = [
     '192.168.43.136',
     '178.154.202.215',
     '10.5.22.12',
-    '217.28.238.125',
+    '178.154.241.46',
 ]
 
 # Application definition
@@ -50,8 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'web',
     'crispy_forms',
-    'django_elasticsearch_dsl',
-    'rest_framework'
+    'rest_framework',
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
@@ -76,12 +75,6 @@ DATABASES = {
     }
 }
 
-
-ELASTICSEARCH_DSL = {
-    'default': {
-        'hosts': 'localhost:9200'
-    },
-}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

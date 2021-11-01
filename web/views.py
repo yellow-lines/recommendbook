@@ -1,22 +1,11 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
-from django.shortcuts import render, get_object_or_404, redirect
-from django.db.models import Q
-from django.http import Http404
+from django.shortcuts import render, redirect
 import sqlalchemy
 from django.contrib import messages
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm
-from django.db.models import Case, When
-from django.views.decorators.csrf import csrf_exempt, csrf_protect  # Add this
 from django.contrib.auth.forms import AuthenticationForm  # add this
-from django.http import HttpResponse
-from django.contrib.auth.decorators import login_required
-from rest_framework import viewsets
-from django.contrib.auth.models import User
 from web.forms import NewUserForm
-from web.models import Category, Article
-from web.serializers import CategorySerializer, ArticleSerializer, UserSerializer
 from sqlalchemy import create_engine
 from sshtunnel import SSHTunnelForwarder
 from sqlalchemy import create_engine
@@ -26,32 +15,38 @@ from web.recommendations import *
 from pyvis.network import Network
 
 
-
 server = SSHTunnelForwarder(
-        ('178.154.241.46', 22),
-        ssh_username="owner",
-        ssh_password="здесь ваш закрытый ssh ключ",
-        remote_bind_address=('127.0.0.1', 5432)
-    )
+    ('178.154.241.46', 22),
+    ssh_username="owner",
+    ssh_password="здесь ваш закрытый ssh ключ",
+    remote_bind_address=('127.0.0.1', 5432)
+)
 
 server.start()
 local_port = str(server.local_bind_port)
 engine = create_engine(
-        'postgresql://{}:{}@{}:{}/{}'.format("postgres", "sleeperonelove", "127.0.0.1", local_port,
-                                             "recommender_users"))
+    'postgresql://{}:{}@{}:{}/{}'.format("postgres", "sleeperonelove", "127.0.0.1", local_port,
+                                         "recommender_users"))
 connection = engine.connect()
+
 
 def index(request):
     query = request.GET.get('q')  # получение значения поиска
+
     if query != None:
-        return ('book', query)
+        print(query.split())
+        aut_ = '"aut"'
+        title_ = '"title"'
+        sql_request = f"select * from stockstats_cat where({title_} ilike '%{query}%' or {aut_} ilike '%{query}%')"
+        dr2 = pd.read_sql(sqlalchemy.text(sql_request), connection)
+        search_output = dr2.reset_index().to_json(orient='records')
+        search_data = []
+        search_data = json.loads(search_output)
+        return render(request, 'web/list.html', context={'content': search_data})
     return render(request, 'web/index.html')
 
+
 def book(request):
-    dr1 = pd.read_sql("select * from stockstats_cat limit 50", connection)
-    output = dr1.reset_index().to_json(orient='records')
-    data = []
-    data = json.loads(output)
 
     query = request.GET.get('q')  # получение значения поиска
     if query != None:
@@ -64,17 +59,20 @@ def book(request):
         search_data = []
         search_data = json.loads(search_output)
         return render(request, 'web/list.html', context={'content': search_data})
-
+    id_book = str(request.GET.get('recId'))
+    if id_book != None:
+        dep_books = get_dep_books(id_book, connection)
+        output = dep_books.reset_index().to_json(orient='records')
+        data = []
+        data = json.loads(output)
 
     # dict_keys(['index', 'recId', 'aut', 'title', 'place', 'publ', 'yea', 'lan', 'rubrics', 'serial'])
     return render(request, 'web/book.html', context={'content': data})
 
 
 def reader_cab(request):
-
-    dr1 = pd.read_sql("select * from stockstats_cat limit 50", connection)
-    dr_search = dr1
-    output = dr1.reset_index().to_json(orient='records')
+    history_data = get_history_data(request.user.username, connection)
+    output = history_data.reset_index().to_json(orient='records')
     data = []
     data = json.loads(output)
     query = request.GET.get('q')  # получение значения поиска
@@ -95,17 +93,8 @@ def reader_cab(request):
 
 
 def list(request):
-    """engine = create_engine("postgresql://postgres:sleeperonelove@127.0.0.1:5432/recommender_users")
-    connection = engine.connect()
-    dr1 = pd.read_sql("SELECT * FROM adress_table", connection)"""
 
-
-    """dr1 = pd.read_sql("select * from stockstats_cat limit 50", connection)
-    output = dr1.reset_index().to_json(orient='records')
-    data = []
-    data = json.loads(output)"""
-
-    recommend_data = get_id_exp1('login_313414', connection)
+    recommend_data = get_id_exp1(request.user.username, connection)
     output = recommend_data.reset_index().to_json(orient='records')
     data = []
     data = json.loads(output)
@@ -123,21 +112,6 @@ def list(request):
         return render(request, 'web/list.html', context={'content': search_data})
 
     return render(request, 'web/list.html', context={'content': data})
-
-
-class UserViewSet(viewsets.ModelViewSet):
-    serializer_class = UserSerializer
-    queryset = User.objects.all()
-
-
-class CategoryViewSet(viewsets.ModelViewSet):
-    serializer_class = CategorySerializer
-    queryset = Category.objects.all()
-
-
-class ArticleViewSet(viewsets.ModelViewSet):
-    serializer_class = ArticleSerializer
-    queryset = Article.objects.all()
 
 
 def register_request(request):
@@ -164,12 +138,12 @@ def login_request(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                messages.info(request, f"Вы вошли как {username}.")
+                messages.info(request, f"You are now logged in as {username}.")
                 return redirect("reader_cab")
             else:
-                messages.error(request, "Неверный пароль или логин.")
+                messages.error(request, "Invalid username or password.")
         else:
-            messages.error(request, "Неверный пароль или логин.")
+            messages.error(request, "Invalid username or password.")
 
     form = AuthenticationForm()
     return render(request=request, template_name="web/login.html", context={"login_form": form})
@@ -181,27 +155,19 @@ def logout_request(request):
     return redirect("index")
 
 
-def connect(request):
-    engine = create_engine(
-        "postgresql://postgres:sleeperonelove@127.0.0.1:5432/recommender_users")
-    connection = engine.connect()
-    dr1 = pd.read_sql("SELECT * FROM adress_table", connection)
-    return 0
-
-
 def graph_request(request):
 
     got_net = Network(height='100%',
                       width='100%',
-                      bgcolor='#ffffff',
-                      font_color='black',
-                      notebook=False)
+                      bgcolor='#222222',
+                      font_color='white',
+                      notebook=True)
 
-    # установить физический макет сети
-    # https://pyvis.readthedocs.io/en/latest/documentation.html#pyvis.network.Network.barnes_hut
     got_net.barnes_hut()
-    got_data = pd.read_csv(
-        'https://www.macalester.edu/~abeverid/data/stormofswords.csv')
+
+    username = request.user.username
+    got_data = get_id_exp2(username, connection)
+
     sources = got_data['Source']
     targets = got_data['Target']
     weights = got_data['Weight']
@@ -226,7 +192,6 @@ def graph_request(request):
             '<br>'.join(neighbor_map[node['id']])
         node['value'] = len(neighbor_map[node['id']])
 
-    got_net.show('templates/web/graph.html')
+    got_net.show('templates/graph.html')
 
-    return render(request=request, template_name="web/graph.html")
-
+    return render(request, template_name="graph.html")

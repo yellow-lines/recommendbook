@@ -52,7 +52,7 @@
                 <div class="project-box-wrapper">
                     <div style="box-sizing: inherit;" class="margin-list">
                         <div class="project-box-header">
-                            <span class="font">{%if book.rubrics == 'None'%}{% else %}{{ book.rubrics }}{% endif %}</span>
+                            <span class="font">{{ book.rubrics }}</span>
                             <div class="more-wrapper">
 
                             </div>
@@ -60,7 +60,7 @@
 
                         <div class="project-box-content-header">
                             <p class="box-content-header"><span class="font"> {{ book.title }}</span></p>
-                            <p class="box-content-subheader"><span class="font">{%if book.aut == 'None'%}{% else %}{{ book.aut }}{%endif%}</span></p>
+                            <p class="box-content-subheader"><span class="font">{{ book.aut }}</span></p>
                         </div>
         <!--<div class="box-progress-wrapper">
             <button class="btn" id="green"><i class="fa fa-lg" aria-hidden="true">👍</i></button>
@@ -103,8 +103,8 @@
                                     </div>
 
                                     <div class="project-box-content-header">
-                                        <p class="box-content-header"><span class="font">{{ book.title|truncatechars:80}}</span></p>
-                                        <p class="box-content-subheader"><span class="font">{{ book.aut }}</span></p>
+                                        <p class="box-content-header"><span class="font">{{ book.title|truncatechars:40}}</span></p>
+                                        <p class="box-content-subheader"><span class="font">{{ book.aut|truncatechars:30 }}</span></p>
                                     </div>
 
 
@@ -117,8 +117,8 @@
                                 </div>
                         </a>
         </div>
-        <span class="beauty-font" style="font-size: 14px; font-weight: lighter">{{ book.title|truncatechars:80 }},</span>
-        <span> {{ book.aut }}</span>
+        <span class="beauty-font" style="font-size: 14px; font-weight: lighter">{{ book.title|truncatechars:40 }},</span>
+        <span> {{ book.aut|truncatechars:40 }}</span>
         </td>
         {% if forloop.counter|divisibleby:4 %}
         </tr>

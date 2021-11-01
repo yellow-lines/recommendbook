@@ -53,10 +53,13 @@
 			<li><a href="{% url 'index' %}">
 					<font color="white">Начальная страница</font>
 				</a></li>
+            {% if user.is_authenticated %}
+
 			<li><a href="/list">
 					<font color="white">Страница поиска</font>
 				</a></li>
 			<li></li>
+{% endif %}
 			{% if user.is_authenticated %}
 			<li><a href="/reader_cab">
 					<font color="white">Кабинет читателя</font>
