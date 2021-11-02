@@ -92,7 +92,6 @@ def reader_cab(request):
         search_data = []
         search_data = json.loads(search_output)
         return render(request, 'web/list.html', context={'content': search_data})
-
     # dict_keys(['index', 'recId', 'aut', 'title', 'place', 'publ', 'yea', 'lan', 'rubrics', 'serial'])
     return render(request, 'web/reader_cab.html', context={'content': data})
 
@@ -170,32 +169,45 @@ def graph_request(request):
     got_net.barnes_hut()
 
     username = request.user.username
-    got_data = get_id_exp2(username, connection)
+    got_data, exp_person = get_id_exp2(username, connection)
 
-    sources = got_data['Source']
-    targets = got_data['Target']
+    sources = got_data['Object_1']
+    targets = got_data['Object_2']
     weights = got_data['Weight']
+    src_title = got_data['Source']
+    trg_title = got_data['Target']
 
-    edge_data = zip(sources, targets, weights)
+    edge_data = zip(sources, targets, weights, src_title, trg_title)
 
     for e in edge_data:
-        src = e[0]
-        dst = e[1]
+        src = e[3]
+        dst = e[4]
         w = e[2]
+        src_ttl = e[0]
+        dst_ttl = e[1]
+        if src_ttl in exp_person:
+            clr = 'yellow'
+            shp = 'diamond'
+        else:
+            clr = '#D2E5FF'
+            shp = 'dot'
+        if dst_ttl in exp_person:
+            clr2 = 'yellow'
+            shp2 = 'diamond'
+        else:
+            clr2 = '#D2E5FF'
+            shp2 = 'dot'
 
-        got_net.add_node(src, src, title=src)
-        got_net.add_node(dst, dst, title=dst)
-        got_net.add_edge(src, dst, value=w)
+        got_net.add_node(src, src, color=clr, shape=shp, title=src)
+        got_net.add_node(dst, dst, color=clr2, shape=shp2, title=dst)
+        got_net.add_edge(src, dst, value=w, color='#D2E5FF')
 
-    # https://pyvis.readthedocs.io/en/latest/documentation.html#pyvis.network.Network.get_adj_list
     neighbor_map = got_net.get_adj_list()
-
     # добавить данные о соседях в узлы
     for node in got_net.nodes:
-        node['title'] += ' Neighbors:<br>' + \
+        node['title'] += ' Связи:<br>' + \
             '<br>'.join(neighbor_map[node['id']])
         node['value'] = len(neighbor_map[node['id']])
-
     got_net.show('templates/graph.html')
 
     return render(request, template_name="graph.html")
