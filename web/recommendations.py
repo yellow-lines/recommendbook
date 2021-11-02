@@ -32,8 +32,8 @@ def get_id_exp1(login_, connection):
     return book_info
 
 
-def get_id_exp2(lgn, connection):
-    id_reader = get_registr_table_userid(lgn, connection)
+def get_id_exp2(login_, connection):
+    id_reader = get_registr_table_userid(login_, connection)
     zapros_to_id_exp = 'select * from exp_reader_id where "readerID" = ' + \
         str(int(id_reader))
     exp = pd.read_sql(zapros_to_id_exp, connection)
@@ -56,15 +56,15 @@ def get_id_exp2(lgn, connection):
     book_info1.rename(columns={'Object_1': 'recId'}, inplace=True)
     book_info1 = book_info1.merge(book_info_obj1, on=["recId"])
 
-    book_info1.drop(columns=['index', 'recId'], inplace=True)
+    book_info1.drop(columns=['index'], inplace=True)
+    book_info1.rename(columns={'recId': 'Object_1'}, inplace=True)
 
     book_info_obj1.rename(
         columns={'Source': 'Target', 'recId': 'Object_2'}, inplace=True)
     book_info1 = book_info1.merge(book_info_obj1, on=["Object_2"])
-    book_info1.drop(columns=['Object_2'], inplace=True)
     book_info1.rename(columns={'val': 'Weight'}, inplace=True)
 
-    return book_info1
+    return book_info1, exp_reader
 
 
 def get_history_data(login_, connection):
