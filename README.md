@@ -10,7 +10,7 @@ credentials: https://docs.yandex.ru/docs/view?url=ya-disk-public%3A%2F%2FEEEAUEM
 4. **Установить необходимые библиотеки командой**
    > pip3 install -r /web/requirements.txt
 6. **Установить миграции последовательностью команд**
-   > python3 manage.py makemigrations
-   >> python3 manage.py migrate
+    '''python3 manage.py makemigrations
+    python3 manage.py migrate'''
 8. **Запустить проект командой**
    > python3 manage.py runserver
