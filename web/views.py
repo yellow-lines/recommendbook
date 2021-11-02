@@ -31,8 +31,8 @@ connection = engine.connect()
 
 
 def index(request):
+    
     query = request.GET.get('q')  # получение значения поиска
-
     if query != None:
         print(query.split())
         aut_ = '"aut"'
@@ -72,16 +72,18 @@ def book(request):
 
 def reader_cab(request):
     history_data = get_history_data(request.user.username, connection)
-    output = history_data.reset_index().to_json(orient='records')
-    data = []
-    data = json.loads(output)
+    history_output = history_data.reset_index().to_json(orient='records')
+    history_data = []
+    history_data = json.loads(history_output)
+    request.session['history_data'] = history_data
 
-    recommend_data = get_id_exp1('login_313414', connection)
-    output = recommend_data.reset_index().to_json(orient='records')
-    data = []
-    data = json.loads(output)
+    recommend_data = get_id_exp1(request.user.username, connection)
+    recommend_output = recommend_data.reset_index().to_json(orient='records')
+    recommend_data = []
+    recommend_data = json.loads(recommend_output)
+    request.session['recommend_data'] = recommend_data
 
-    query = request.GET.get('q')  # получение значения поиска
+    query = request.GET.get('q')
     if query != None:
         print(query.split())
         aut_ = '"aut"'
@@ -92,8 +94,10 @@ def reader_cab(request):
         search_data = []
         search_data = json.loads(search_output)
         return render(request, 'web/list.html', context={'content': search_data})
+
     # dict_keys(['index', 'recId', 'aut', 'title', 'place', 'publ', 'yea', 'lan', 'rubrics', 'serial'])
-    return render(request, 'web/reader_cab.html', context={'content': data})
+    return render(request, 'web/reader_cab.html', context={'content': history_data})
+
 
 
 def list(request):
@@ -117,6 +121,13 @@ def list(request):
 
     return render(request, 'web/list.html', context={'content': data})
 
+def download_json(request):
+    recommend_data = request.session.get('recommend_data')
+    history_data = request.session.get('history_data')
+    download_data = dict_transform(recommend_data, history_data)
+    response = HttpResponse(download_data, content_type="application/json")
+    #response['Content-Disposition'] = 'attachment; filename="data.json"'
+    return response
 
 def register_request(request):
     if request.method == "POST":
