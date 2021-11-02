@@ -6,9 +6,9 @@ credentials: https://docs.yandex.ru/docs/view?url=ya-disk-public%3A%2F%2FEEEAUEM
 
 ## Запуск
 1. **Склонировать репозиторий командой**
-   ```git clone https://github.com/bronsoun/recommendbook.git
+   ```git clone https://github.com/bronsoun/recommendbook.git```
 4. **Установить необходимые библиотеки командой**
-   ```pip3 install -r /web/requirements.txt
+   ```pip3 install -r /web/requirements.txt```
 6. **Установить миграции последовательностью команд**
    ```python3 manage.py makemigrations```
    ```python3 manage.py migrate```
