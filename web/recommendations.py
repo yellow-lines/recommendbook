@@ -1,5 +1,17 @@
 import pandas as pd
 
+def dict_transform(recommend, history):
+    keys = ['level_0', 'index', 'place', 'publ', 'yea', 'lan', 'rubrics', 'serial']
+    for i in recommend:
+        for j in keys:
+            i.pop(j)
+    for i in history:
+        for j in keys:
+            i.pop(j)
+    recommend_list = json.dumps(recommend, indent=4, sort_keys=False, ensure_ascii=False)
+    history_list = json.dumps(history, indent=4, sort_keys=False, ensure_ascii=False)
+    result = json.dumps({"recommendations": json.loads(recommend_list), "history": json.loads(history_list)}, indent=4, sort_keys=False, ensure_ascii=False)
+    return result
 
 def get_registr_table_userid(login_, connection):
     zapros_to_name = 'select * from registr_table where "login" = ' + "'" + login_ + "'"
