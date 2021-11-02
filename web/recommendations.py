@@ -31,7 +31,6 @@ def get_id_exp1(login_, connection):
     book_info = pd.read_sql(zapros_to_id_book, connection)
     return book_info
 
-
 def get_id_exp2(lgn, connection):
     id_reader = get_registr_table_userid(lgn, connection)
     zapros_to_id_exp = 'select * from exp_reader_id where "readerID" = ' + \

@@ -4,7 +4,6 @@ http://178.154.241.46:4985/
 credentials: {login: 'login_313415', pass: 'xjTYShyJ'; login: 'login_313418', pass: 'QGHnM23b'}
 
 
-
 ## Запуск
 1. **Склонировать репозиторий командой**
    > git clone https://github.com/bronsoun/recommendbook.git
@@ -15,4 +14,3 @@ credentials: {login: 'login_313415', pass: 'xjTYShyJ'; login: 'login_313418', pa
    > python3 manage.py migrate
 8. **Запустить проект командой**
    > python3 manage.py runserver
-

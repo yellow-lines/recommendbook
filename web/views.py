@@ -75,6 +75,12 @@ def reader_cab(request):
     output = history_data.reset_index().to_json(orient='records')
     data = []
     data = json.loads(output)
+
+    recommend_data = get_id_exp1('login_313414', connection)
+    output = recommend_data.reset_index().to_json(orient='records')
+    data = []
+    data = json.loads(output)
+
     query = request.GET.get('q')  # получение значения поиска
     if query != None:
         print(query.split())
@@ -87,7 +93,6 @@ def reader_cab(request):
         search_data = json.loads(search_output)
         return render(request, 'web/list.html', context={'content': search_data})
 
-        return render(request, 'web/list.html', context={'content': data})
     # dict_keys(['index', 'recId', 'aut', 'title', 'place', 'publ', 'yea', 'lan', 'rubrics', 'serial'])
     return render(request, 'web/reader_cab.html', context={'content': data})
 
@@ -99,7 +104,7 @@ def list(request):
     data = []
     data = json.loads(output)
 
-    query = request.GET.get('q')  # получение значения поиска
+    query = request.GET.get('q')  
     if query != None:
         print(query.split())
         aut_ = '"aut"'
@@ -122,8 +127,7 @@ def register_request(request):
             login(request, user)
             messages.success(request, "Registration successful.")
             return redirect("reader_cab")
-        messages.error(
-            request, "Unsuccessful registration. Invalid information.")
+        messages.error(request, "Unsuccessful registration. Invalid information.")
     form = NewUserForm()
     return render(request=request, template_name="web/signup.html", context={"register_form": form})
 
