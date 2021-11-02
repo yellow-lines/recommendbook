@@ -88,47 +88,39 @@
             <h2 class="beauty-font"> Ваша подборка</h2>
             {% endif %}
         </div>
-        <div class="col-sm-3">
-            <table class="table">
-                <tr>
-                    {% for book in content %}
-                    <td style="border-top:0px">
-                        <a href="/book?{%for key, value in book.items %}{{key}}={{value}}&{%endfor%}" color="black" name="item_book">
-                            <div class="project-box-wrapper">
-                                <div class="project-box" style="background-color: #fee4cb;">
-                                    <div class="project-box-header">
-                                        <span>{{ book.rubrics }}</span>
-                                        <div class="more-wrapper">
-                                        </div>
+        <div class="wrapper" style="margin-top: 20px">
+            {% for book in content %}
+            <div>
+                <a href="/book?{%for key, value in book.items %}{{key}}={{value}}&{%endfor%}" color="black" name="item_book">
+                    <div class="project-box-wrapper">
+                        <div class="project-box" style="background-color: #fee4cb;">
+                            <div class="project-box-header">
+                                <span>{{ book.rubrics }}</span>
+                                    <div class="more-wrapper">
                                     </div>
-
+                            </div>
                                     <div class="project-box-content-header">
                                         <p class="box-content-header"><span class="font">{{ book.title|truncatechars:40}}</span></p>
                                         <p class="box-content-subheader"><span class="font">{{ book.aut|truncatechars:30 }}</span></p>
                                     </div>
 
 
-                                    <!--<div class="box-progress-wrapper">
-                                    <button class="btn" id="green"><i class="fa fa-lg" aria-hidden="true">👍</i></button>
-                                    <button class="btn" id="red"><i class="fa fa-lg" aria-hidden="true">👎</i></button>
-                                </div>-->
                                     <div class="project-box-footer">
+
                                     </div>
-                                </div>
-                        </a>
-        </div>
-        <span class="beauty-font" style="font-size: 14px; font-weight: lighter">{{ book.title|truncatechars:40 }},</span>
-        <span> {{ book.aut|truncatechars:40 }}</span>
-        </td>
-        {% if forloop.counter|divisibleby:4 %}
-        </tr>
-        <tr>
-            {% endif %}
+                        </div>
+
+                    </div>
+                    </a>
+                <div>
+                    <span class="beauty-font" style="font-size: 14px; font-weight: lighter">{{ book.title|truncatechars:40 }},</span>
+                    <span> {{ book.aut|truncatechars:40 }}</span>
+                </div>
+
+            </div>
+
             {% endfor %}
-        </tr>
-
-
-        </table>
+        </div>
     </div>
 </section>
 
