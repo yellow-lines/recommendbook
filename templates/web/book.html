@@ -34,41 +34,31 @@
                 <form class="subscription relative" role="search" method="get" action=''>
                     <input type="text" class="form-control input-lg " name="q" value="{{ request.GET.q }}"
                         placeholder="Название, автор" />
-                    <button class='primary-btn' type='submit'><span>Поехали!</span><span
-                            class="lnr lnr-arrow-right"></span></button>
+                    <button class='primary-btn' type='submit'><span>Поехали!</span><span class="lnr lnr-arrow-right"></span></button>
                 </form>
-
             </div>
         </div>
     </div>
 </section>
-
 <section class="story-area">
     <div class="container" style="margin-left: auto;
     margin-right: auto; margin-top: -100px; border-top: 100px">
         <h2 class="beauty-font" style="margin: 50px 00px 0px -49px">{{ request.GET.title }}</h2>
-
         <div class="row" style="left: -200px">
             <div class="col" style="padding: 40px 25px; margin-left: auto;
     margin-right: auto;
     width: 6em">
-
                 <div class="project-box-one" style="background-color: #fee4cb;">
-
                     <div class="project-box-header">
                         <span>{{ request.GET.rubrics }}</span>
                     </div>
-
                     <div class="project-box-content-header">
                         <p class="box-content-header"><span class="font">{{ request.GET.title }}</span></p>
                         <p class="box-content-subheader"><span class="font">{{ request.GET.aut }}</span></p>
                     </div>
-                    <!--<div class="box-progress-wrapper">
-                        <button class="btn" id="green"><i class="fa fa-lg" aria-hidden="true">👍</i></button>
-                        <button class="btn" id="red"><i class="fa fa-lg" aria-hidden="true">👎</i></button>
-                    </div>-->
                 </div>
-
+                <button class='primary-btn'  style="width: 180px; margin-left: 10px; margin-top: 20px" type='submit' name="like"><span><a>❤️</a> Добавить</span></button>
+                <button class='primary-btn' style="width: 180px; margin-left: 10px; margin-top: 10px" type='submit' name="dislike"><span><a>💔</a> Убрать</span></button>
             </div>
             <div class="col" style="left: -80px; padding: 40px 25px;">
                 <p>Автор: {{ request.GET.aut }}</p>
@@ -77,36 +67,19 @@
                 <p>Возрастные ограничения: 12+</p>
                 <p>Тип издания: {{ request.GET.publ }}</p>
                 <p>Год издания: {{ request.GET.yea }}</p>
-
             </div>
             <div class="row">
                 <div class="col">
                     <button class='primary-btn' style="width: 225px" type='submit'><span>Забронировать</span></button>
                 </div>
             </div>
-
-        </div>
-        <div class="row">
-            <div class="col">
-
-                <!--<button class="btn" id="green"><i class="fa fa-thumbs-up fa-lg" aria-hidden="true"></i></button>
-                                <button class="btn" id="red"><i class="fa fa-thumbs-down fa-lg" aria-hidden="true"></i></button>
-
-
-
-                                <button class='primary-btn'  type='submit'><span><a>❤️</a> Нравится</span></button>
-                                <button class='primary-btn' type='submit'><span><a>💔</a> Не нравится</span></button>-->
-
-            </div>
         </div>
     </div>
     <h2 class="beauty-font" style="margin: 50px 100px -49px">Посмотри доступность в библиотеке</h2>
     <div id="map" class="map" style="width: 900px; height: 400px; margin-left: auto;
     margin-right: auto; margin-top: 100px"></div>
-
 </section>
-
-    <h2 class="beauty-font" style="margin-top: 50px;">Вместе с этим читают</h2>
+    <h2 class="beauty-font" style="margin-top: 50px;">Это читают все</h2>
     <section class="center slider">
     {% for book in content %}
         <div class="slick-item">
@@ -116,20 +89,12 @@
                         <div class="project-box-header">
                             <span>{{ book.rubrics }}</span>
                             <div class="more-wrapper">
-
                             </div>
                         </div>
-
                         <div class="project-box-content-header">
                             <p class="box-content-header"><span class="font">{{ book.title }}</span></p>
                             <p class="box-content-subheader"><span class="font">{{ book.aut }}</span></p>
                         </div>
-
-                        <!--<div class="box-progress-wrapper">
-                            <button class="btn" id="green"><i class="fa fa-lg" aria-hidden="true">👍</i></button>
-                            <button class="btn" id="red"><i class="fa fa-lg" aria-hidden="true">👎</i></button>
-                        </div>-->
-
                     </div>
                 </div>
             </a>

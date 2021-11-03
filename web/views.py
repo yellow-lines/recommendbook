@@ -2,6 +2,8 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.shortcuts import render, redirect
 import sqlalchemy
+from django.http import HttpResponse
+from django.http import JsonResponse
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm  # add this
@@ -47,7 +49,6 @@ def index(request):
 
 
 def book(request):
-
     query = request.GET.get('q')  # получение значения поиска
     if query != None:
         print(query.split())

@@ -4,7 +4,11 @@
 *
 * Start typing your code under these comments
 */
-
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(4, 4fr);
+  grid-auto-rows: 400px;
+}
 .container {
 	width: 100%;
 	max-width: 1000px;

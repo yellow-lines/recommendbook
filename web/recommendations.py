@@ -1,4 +1,5 @@
 import pandas as pd
+import json
 
 def dict_transform(recommend, history):
     keys = ['level_0', 'index', 'place', 'publ', 'yea', 'lan', 'rubrics', 'serial']

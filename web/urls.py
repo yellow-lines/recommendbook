@@ -15,5 +15,6 @@ urlpatterns = [
     path('reader_cab/', views.reader_cab, name="reader_cab"),
     path('list/', views.list, name='list'),
     url(r'^book/$', views.book, name='book'),
-    url('graph/', views.graph_request, name='graph')
+    url('graph/', views.graph_request, name='graph'),
+    url('json/', views.download_json, name='json'),
 ]
